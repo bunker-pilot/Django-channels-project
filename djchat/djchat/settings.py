@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "drf_spectacular",
+    "server",
+    "account",
 ]
 
 MIDDLEWARE = [
@@ -120,3 +123,20 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "account.User"
+
+# auth backends
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "account.authentication.EmailAuthBackend",
+]
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectaycular.openapi.AutoSchema", 
+}
+SPECTACULAR_SETTINGS = {
+    "TITLE" : "Chat Server",
+    "DESCRIPTIOM": "Fun journey i guess? on second thought its boring",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA":False,
+}
