@@ -76,4 +76,15 @@ class ServerViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin, viewsets.Ge
             return Response({"status":"Left"}, status=200)
         return Response({"status":"not a member"}, status=200)
     
+    @action(methods=["POST"] , detail=True, url_path="upload-icon", permission_classes=[IsAuthenticated])
+    def upload_icon(self, request, pk=None):
+        """Upload Server's icon"""
+        server = self.get_object()
+        
+        serializer = self.get_serializer(server, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
+        return Response(serializer.errors, status=400)
+
     
