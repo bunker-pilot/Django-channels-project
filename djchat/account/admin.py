@@ -8,9 +8,9 @@ from django.utils.translation import gettext_lazy as _
 class UserAdmin(BaseUserAdmin):
     """Define admin page for users"""
     ordering = ["id"]
-    list_display = ["name", "email"]
+    list_display = ["username", "email"]
     fieldsets = (
-        (None, {"fields": ("email", "name", "password")}),
+        (None, {"fields": ("email", "username", "password")}),
         (
             _("Premission"),
             (
@@ -33,7 +33,7 @@ class UserAdmin(BaseUserAdmin):
                 "classes": ("wide",),
                 "fields": (
                     "email",
-                    "name",
+                    "username",
                     "password1",
                     "password2",
                     "is_active",

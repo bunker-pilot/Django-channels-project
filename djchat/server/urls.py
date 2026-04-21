@@ -3,7 +3,7 @@ from . import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register("servers", viewset= views.ServerViewSet)
+router.register("servers", viewset= views.ServerViewSet, basename="servers")
 
 app_name = "server"
 

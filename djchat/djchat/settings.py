@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_spectacular",
+    "drf_spectacular_sidecar",
     "server",
     "account",
 ]
@@ -119,6 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -133,11 +135,14 @@ AUTHENTICATION_BACKENDS = [
     "account.authentication.EmailAuthBackend",
 ]
 REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "drf_spectaycular.openapi.AutoSchema", 
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema", 
 }
 SPECTACULAR_SETTINGS = {
     "TITLE" : "Chat Server",
     "DESCRIPTIOM": "Fun journey i guess? on second thought its boring",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA":False,
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR'
 }
