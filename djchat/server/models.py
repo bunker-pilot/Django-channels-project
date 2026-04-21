@@ -15,7 +15,7 @@ class Server(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,related_name="servers_owned" ,on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="servers", on_delete=models.DO_NOTHING)
     description = models.TextField(max_length=250, null=True, blank=True)
-    member = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    member = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="servers_member")
 
     def __str__(self):
         return self.name
