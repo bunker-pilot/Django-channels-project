@@ -5,9 +5,19 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from . import serializers
-from .models import Server
+from .models import Server, Category
 from .schema import server_extend_schema, server_user_extend_schema
 # Create your views here.
+
+class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    serializer_class = serializers.CategorySerializer
+
+    def get_queryset(self):
+        queryset = Category.objects.all()
+
+        return queryset
+
+
 
 @server_extend_schema
 class ServerViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin, viewsets.GenericViewSet):

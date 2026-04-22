@@ -32,8 +32,8 @@ class ServerSerializer(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         data= super().to_representation(instance)
-
-        if not self.context.get("request")["inlcude_member_count"]:
+        
+        if not self.context.get("include_member_count", False):
             data.pop("member_count", None)
         return data
     
