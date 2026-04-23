@@ -46,4 +46,18 @@ class Channel(models.Model):
     def __str__(self):
         return self.name
 
+
+
+class Message(models.Model):
+    channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name='messages')
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='messages')
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    server = models.ForeignKey(Server, on_delete=models.CASCADE)  
+    
+    class Meta:
+        ordering = ['timestamp']
+    
+    def __str__(self):
+        return f"{self.sender.username}: {self.content[:20]}"
     
