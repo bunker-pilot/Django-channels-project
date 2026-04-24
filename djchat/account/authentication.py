@@ -1,20 +1,13 @@
-from django.contrib.auth import get_user_model
+from django.conf import settings
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
-User = get_user_model()
 
+class JWTCookieAuthentication(JWTAuthentication):
+    def authenticate(self, request):
+        raw_token = request.COOKIES.get(settings.SIMPLE_JWT["ACCESS_TOKEN_NAME"]) or None
 
-class EmailAuthBackend:
-    def authenticate(self, request, username=None,email = None, password=None):
-        try:
-            user = User.objects.get(email=email)
-            if user.check_password(password):
-                return user
-            return None
-        except (User.MultipleObjectsReturned, User.DoesNotExist):
+        if raw_token is None:
             return None
 
-    def get_user(self, user_id):
-        try:
-            return User.objects.get(pk=user_id)
-        except User.DoesNotExist:
-            return None
+        validated_token = self.get_validated_token(raw_token)
+        return self.get_user(validated_token), validated_token

@@ -20,14 +20,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from account.views import JWTCookieTokenObtainPairView, JWTCookieTokenRefreshView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/schema/" , SpectacularAPIView.as_view() , name="api-schema"),
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="api-schema") , name="api-docs" ),
-    path("api/token/" , TokenObtainPairView.as_view() , name="token_obtain_pair"),
-    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/token/" , JWTCookieTokenObtainPairView.as_view() , name="token_obtain_pair"),
+    path("api/token/refresh/", JWTCookieTokenRefreshView.as_view(), name="token_refresh"),
     path("api/", include("server.urls"))
 ]
 
