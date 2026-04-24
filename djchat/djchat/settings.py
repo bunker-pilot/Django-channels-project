@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -143,6 +143,9 @@ AUTHENTICATION_BACKENDS = [
 ]
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema", 
+    "DEFAULT_AUTHENTICATION_CLASSES":[
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ]
 }
 SPECTACULAR_SETTINGS = {
     "TITLE" : "Chat Server",
@@ -154,10 +157,19 @@ SPECTACULAR_SETTINGS = {
     'REDOC_DIST': 'SIDECAR'
 }
 
-CORS_ALLOWED_ORIGINS =[
-    "http://localhost:5173"
-]
+CORS_ALLOW_ALL_ORIGINS =True
+CORS_ALLOW_CREDENTIALS = True
 
 CHANNEL_LAYERS = {
     "default": {"BACKENDS": "channels.layers.InMemoryChannelLayer"}
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME" : timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
