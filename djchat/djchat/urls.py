@@ -28,6 +28,7 @@ urlpatterns = [
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="api-schema") , name="api-docs" ),
     path("api/token/" , JWTCookieTokenObtainPairView.as_view() , name="token_obtain_pair"),
     path("api/token/refresh/", JWTCookieTokenRefreshView.as_view(), name="token_refresh"),
+    path("api/account/" , include("account.urls")),
     path("api/", include("server.urls"))
 ]
 
